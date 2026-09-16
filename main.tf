@@ -1,4 +1,4 @@
-provider "aws" {
+/* provider "aws" {
   region = "eu-north-1"
 }
 
@@ -23,4 +23,4 @@ module "ec2" {
   sg_id     = module.security_group.sg_id
   # sg_id     = var.existing_sg_id 
   env       = var.env
-}
+} */

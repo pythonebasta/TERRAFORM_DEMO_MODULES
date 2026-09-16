@@ -1,9 +1,9 @@
-/* resource "aws_security_group" "ec2_sg" {
+resource "aws_security_group" "ec2_sg" {
   name        = "${var.env}-ec2-sg"
   description = "Security Group con porte dinamiche via for_each"
-  vpc_id      = var.vpc_id */
+  vpc_id      = var.vpc_id
 
-/*   dynamic "ingress" {
+  dynamic "ingress" {
     for_each = var.ingress_ports
     content {
       from_port   = ingress.value.port
@@ -22,6 +22,6 @@
   }
 
   tags = { Name = "${var.env}-sg" }
-} */
+}
 
 output "sg_id" { value = aws_security_group.ec2_sg.id }
