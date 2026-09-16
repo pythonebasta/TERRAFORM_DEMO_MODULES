@@ -21,5 +21,6 @@ module "ec2" {
   source    = "./modules/ec2"
   subnet_id = module.vpc.subnet_id
   sg_id     = module.security_group.sg_id
+  # sg_id     = var.existing_sg_id 
   env       = var.env
 }

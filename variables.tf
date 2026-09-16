@@ -6,3 +6,8 @@ variable "ingress_ports" {
     desc = string
   }))
 }
+variable "existing_sg_id" {
+  type        = string
+  description = "L'ID del Security Group già presente su AWS"
+}
+
