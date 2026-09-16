@@ -18,6 +18,10 @@ ingress_ports = {
     port = 8080
     desc = "Porta applicazione custom"
   }
+/*   nodejs = {
+    port = 3000
+    desc = "Nuova porta applicazione Node.js"
+  } */
 }
 
-existing_sg_id = "sg-077c46a8d6ebfd9ab" # <--- l'ID reale preso dalla console AWS
+# existing_sg_id = "sg-077c46a8d6ebfd9ab" # <--- l'ID reale preso dalla console AWS
