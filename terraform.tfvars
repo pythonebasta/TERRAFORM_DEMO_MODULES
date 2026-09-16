@@ -20,5 +20,3 @@ ingress_ports = {
   }
   
 }
-
-existing_sg_id = "sg-077c46a8d6ebfd9ab" # <--- l'ID reale preso dalla console AWS
