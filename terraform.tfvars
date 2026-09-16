@@ -18,5 +18,4 @@ ingress_ports = {
     port = 8080
     desc = "Porta applicazione custom"
   }
-  
 }
