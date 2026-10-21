@@ -18,4 +18,8 @@ ingress_ports = {
     port = 8080
     desc = "Porta applicazione custom"
   }
+  app = {
+    port = 5432
+    desc = "Porta applicazione Postgres"
+  }
 }
