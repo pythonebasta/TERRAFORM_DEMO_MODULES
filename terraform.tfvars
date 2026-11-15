@@ -23,3 +23,5 @@ ingress_ports = {
     desc = "Porta applicazione Postgres"
   }
 }
+
+imported_bucket_name = "gaetano-mio-demo-bucket-2026"

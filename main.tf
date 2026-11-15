@@ -1,7 +1,7 @@
-/* provider "aws" {
+ provider "aws" {
   region = "eu-north-1"
 }
-
+/*
 module "vpc" {
   source             = "./modules/vpc" # Percorso flat semplificato
   vpc_cidr           = "10.0.0.0/16"
@@ -24,3 +24,7 @@ module "ec2" {
   # sg_id     = var.existing_sg_id 
   env       = var.env
 } */
+module "s3_import" {
+  source      = "./modules/s3_import"
+  bucket_name = var.imported_bucket_name
+}

@@ -6,5 +6,7 @@ variable "ingress_ports" {
     desc = string
   }))
 }
-
+variable "imported_bucket_name" {
+  type = string
+}
 
