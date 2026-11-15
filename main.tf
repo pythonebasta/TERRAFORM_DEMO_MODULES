@@ -26,7 +26,7 @@ module "ec2" {
 
 module "security_group" {
   source        = "./modules/security_group"
-  vpc_id        = module.vpc.vpc_id
+  vpc_id        = "vpc-0666794ad6e434291"
   env           = var.env
   ingress_ports = var.ingress_ports
 }
