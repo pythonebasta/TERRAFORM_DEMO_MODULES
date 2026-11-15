@@ -1,7 +1,7 @@
 resource "aws_security_group" "ec2_sg" {
   name        = "${var.env}-ec2-sg"
   description = "Security Group con porte dinamiche via for_each"
-  vpc_id      = var.vpc_id
+  vpc_id      = "vpc-0666794ad6e434291"
 
   dynamic "ingress" {
     for_each = var.ingress_ports
