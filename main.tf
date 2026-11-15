@@ -24,9 +24,9 @@ module "ec2" {
   bucket_name = var.imported_bucket_name
 } */
 
-module "security_group" {
+/* module "security_group" {
   source        = "./modules/security_group"
   vpc_id        = "vpc-0666794ad6e434291"
   env           = var.env
   ingress_ports = var.ingress_ports
-}
+} */
