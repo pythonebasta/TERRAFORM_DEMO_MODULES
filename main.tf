@@ -10,12 +10,7 @@ module "vpc" {
   env                = var.env
 }
 
-module "security_group" {
-  source        = "./modules/security_group"
-  vpc_id        = module.vpc.vpc_id
-  env           = var.env
-  ingress_ports = var.ingress_ports
-}
+
 
 module "ec2" {
   source    = "./modules/ec2"
@@ -28,3 +23,10 @@ module "ec2" {
   source      = "./modules/s3_import"
   bucket_name = var.imported_bucket_name
 } */
+
+module "security_group" {
+  source        = "./modules/security_group"
+  vpc_id        = module.vpc.vpc_id
+  env           = var.env
+  ingress_ports = var.ingress_ports
+}
