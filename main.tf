@@ -24,7 +24,7 @@ module "ec2" {
   # sg_id     = var.existing_sg_id 
   env       = var.env
 } */
-module "s3_import" {
+/* module "s3_import" {
   source      = "./modules/s3_import"
   bucket_name = var.imported_bucket_name
-}
+} */
