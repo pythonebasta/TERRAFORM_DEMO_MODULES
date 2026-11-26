@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # JOB 1: Esegue il Plan e salva il risultato
+  # JOB 1: Esegue il Plan, lo converte in JSON e salva i risultati
   terraform-plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
@@ -22,6 +22,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.7.0
+          terraform_wrapper: false # Importante: evita che il wrapper sporchi l'output JSON
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -36,18 +37,44 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -out=tfplan
 
-      - name: Salva Artefatto Plan
+      # Converte il piano binario in JSON per farlo leggere a Checkov
+      - name: Converti Plan in JSON
+        run: terraform show -json tfplan > tfplan.json
+
+      - name: Salva Artefatti Plan
         uses: actions/upload-artifact@v4
         with:
           name: tfplan-artifact
-          path: tfplan
+          path: |
+            tfplan
+            tfplan.json
 
-  # JOB 2: Attende la tua approvazione ed esegue l'Apply
+  # NUOVO JOB: Controllo di sicurezza con Checkov
+  checkov-security:
+    name: Checkov Security Scan
+    runs-on: ubuntu-latest
+    needs: terraform-plan # Parte solo dopo il Plan
+
+    steps:
+      - name: Scarica Artefatti Plan
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan-artifact
+
+      - name: Esegui Checkov sul Terraform Plan
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          file: tfplan.json
+          framework: terraform_plan
+          # soft_fail: false (default) -> Se trova la porta aperta, blocca la pipeline!
+
+  # JOB 3: Attende la tua approvazione ed esegue l'Apply
   terraform-apply:
     name: Terraform Apply
     runs-on: ubuntu-latest
-    needs: terraform-plan        # Parte solo se il Plan ha avuto successo
-    environment: produzione      # <-- Attiva il blocco sul tuo environment "produzione"
+    # ORA DIPENDE DA ENTRAMBI: non arriverà mai all'approvazione se Checkov fallisce
+    needs: [terraform-plan, checkov-security] 
+    environment: produzione
 
     steps:
       - name: Checkout Code
