@@ -49,7 +49,7 @@ jobs:
             tfplan
             tfplan.json
 
-  # NUOVO JOB: Controllo di sicurezza con Checkov
+  # JOB 2: Controllo di sicurezza con Checkov (via pip, veloce e senza blocchi)
   checkov-security:
     name: Checkov Security Scan
     runs-on: ubuntu-latest
@@ -61,12 +61,10 @@ jobs:
         with:
           name: tfplan-artifact
 
-      - name: Esegui Checkov sul Terraform Plan
-        uses: bridgecrewio/checkov-action@v12
-        with:
-          file: tfplan.json
-          framework: terraform_plan
-          # soft_fail: false (default) -> Se trova la porta aperta, blocca la pipeline!
+      - name: Installa ed esegui Checkov sul Terraform Plan
+        run: |
+          pip install checkov
+          checkov -f tfplan.json --framework terraform_plan --output cli
 
   # JOB 3: Attende la tua approvazione ed esegue l'Apply
   terraform-apply:
