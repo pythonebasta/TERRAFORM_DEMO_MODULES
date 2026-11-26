@@ -1,7 +1,7 @@
 env               = "prod"
 availability_zone = "eu-north-1a"
 
-/* ingress_ports = {
+ingress_ports = {
   ssh = {
     port = 22
     desc = "Accesso SSH"
@@ -22,6 +22,6 @@ availability_zone = "eu-north-1a"
     port = 5432
     desc = "Porta applicazione Postgres"
   }
-} */
+}
 
 imported_bucket_name = "gaetano-mio-demo-bucket-2026"
